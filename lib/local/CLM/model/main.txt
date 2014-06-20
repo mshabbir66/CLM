@@ -1,0 +1,3 @@
+CLM ../lib/local/CLM/model/clm.txt
+FaceDetConversion ../lib/local/CLM/model/haarAlign.txt
+FaceChecker ../lib/local/CLM/model/faceCheckHuge.txt

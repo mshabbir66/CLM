@@ -1,0 +1,8 @@
+PDM ../lib/local/CLM/model/BU-4DFE-BaselSep.txt
+Triangulations ../lib/local/CLM/model/tris.txt
+PatchesIntensity ../lib/local/CLM/model/colourPatchesV19_0.25.txt
+PatchesIntensity ../lib/local/CLM/model/colourPatchesV19_0.35.txt
+PatchesIntensity ../lib/local/CLM/model/colourPatchesV19_0.5.txt
+PatchesDepth ../lib/local/CLM/model/depthPatchesV19_0.25.txt
+PatchesDepth ../lib/local/CLM/model/depthPatchesV19_0.35.txt
+PatchesDepth ../lib/local/CLM/model/depthPatchesV19_0.5.txt
