@@ -334,26 +334,35 @@ int main (int argc, char **argv)
         readDepth = true;
     }
 
-	// Do some grabbing	
+
 	
 	// Do some grabbing
-	CK4Wv2OpenCVModule myKinect;
+	//CK4Wv2OpenCVModule myKinect;
+	//Mat img;
+	//Mat dImg;
+	//myKinect.InitializeKinectDevice();
+	//myKinect.UpdateData();
+	//myKinect.calculateMappedFrame();
+	//if ((myKinect.headPointInColor.x - WINSIZE/2 >0) && (myKinect.headPointInColor.y - WINSIZE/2 >0) && (myKinect.headPointInColor.x + WINSIZE/2 < 1920 ) && (myKinect.headPointInColor.y + WINSIZE/2 < 1080)){
+	//	Rect R = cv::Rect(myKinect.headPointInColor.x - WINSIZE/2,myKinect.headPointInColor.y - WINSIZE/2,WINSIZE,WINSIZE);
+	//	img = myKinect.colorRAWFrameMat(R);
+	//	dImg = myKinect.colorMappedFrameMat(R);
+
+	//}
+	//else{
+	//	img = Mat::zeros( Size( WINSIZE, WINSIZE ), CV_8UC4);
+	//	dImg = Mat::zeros( Size( WINSIZE, WINSIZE ), CV_16UC1);
+	//}
+
 	Mat img;
 	Mat dImg;
-	myKinect.InitializeKinectDevice();
-	myKinect.UpdateData();
-	myKinect.calculateMappedFrame();
-	if ((myKinect.headPointInColor.x - WINSIZE/2 >0) && (myKinect.headPointInColor.y - WINSIZE/2 >0) && (myKinect.headPointInColor.x + WINSIZE/2 < 1920 ) && (myKinect.headPointInColor.y + WINSIZE/2 < 1080)){
-		Rect R = cv::Rect(myKinect.headPointInColor.x - WINSIZE/2,myKinect.headPointInColor.y - WINSIZE/2,WINSIZE,WINSIZE);
-		img = myKinect.colorRAWFrameMat(R);
-		dImg = myKinect.colorMappedFrameMat(R);
+	VideoCapture vidRGB;
+	VideoCapture vidDepth;
 
-	}
-	else{
-		img = Mat::zeros( Size( WINSIZE, WINSIZE ), CV_8UC4);
-		dImg = Mat::zeros( Size( WINSIZE, WINSIZE ), CV_16UC1);
-	}
-
+	vidRGB.open("rgbVideo.avi");
+	vidDepth.open("depthVideo.avi");
+	vidRGB >> img;
+	vidDepth >> dImg;
 
 
 
@@ -539,6 +548,7 @@ int main (int argc, char **argv)
 		if(success)			
 		{
 			int idx = clmModel._clm.GetViewIdx(); 	
+			cout << clmModel._clm._triangulations[idx] <<endl;
 
 			// drawing the facial features on the face if tracking is successful
 			clmModel._clm._pdm.Draw(disp, clmModel._shape, clmModel._clm._triangulations[idx]);
@@ -579,20 +589,23 @@ int main (int argc, char **argv)
 		//vCap >> img;
 		//myKinect.UpdateData();
 		//resize(myKinect.colorRAWFrameMat,img, cv::Size(myKinect.colorRAWFrameMat.size().width/2,myKinect.colorRAWFrameMat.size().height/2));
-		myKinect.UpdateData();
-		myKinect.calculateMappedFrame();
+		
+		//myKinect.UpdateData();
+		//myKinect.calculateMappedFrame();
+		
+		//if ((myKinect.headPointInColor.x - WINSIZE/2 >0) && (myKinect.headPointInColor.y - WINSIZE/2 >0) && (myKinect.headPointInColor.x + WINSIZE/2 < 1920 ) && (myKinect.headPointInColor.y + WINSIZE/2 < 1080)){
+		//	Rect R = cv::Rect(myKinect.headPointInColor.x - WINSIZE/2,myKinect.headPointInColor.y - WINSIZE/2,WINSIZE,WINSIZE);
+		//	img = myKinect.colorRAWFrameMat(R);
+		//	dImg = myKinect.colorMappedFrameMat(R);
 
-		if ((myKinect.headPointInColor.x - WINSIZE/2 >0) && (myKinect.headPointInColor.y - WINSIZE/2 >0) && (myKinect.headPointInColor.x + WINSIZE/2 < 1920 ) && (myKinect.headPointInColor.y + WINSIZE/2 < 1080)){
-			Rect R = cv::Rect(myKinect.headPointInColor.x - WINSIZE/2,myKinect.headPointInColor.y - WINSIZE/2,WINSIZE,WINSIZE);
-			img = myKinect.colorRAWFrameMat(R);
-			dImg = myKinect.colorMappedFrameMat(R);
+		//}
+		//else{
+		//	img = Mat::zeros( Size( WINSIZE, WINSIZE ), CV_8UC4);
+		//	dImg = Mat::zeros( Size( WINSIZE, WINSIZE ), CV_16UC1);
+		//}
 
-		}
-		else{
-			img = Mat::zeros( Size( WINSIZE, WINSIZE ), CV_8UC4);
-			dImg = Mat::zeros( Size( WINSIZE, WINSIZE ), CV_16UC1);
-		}
-
+		vidRGB >> img;
+ 		vidDepth >> dImg;
 
 
 		if(!outvideo.empty())
@@ -615,6 +628,9 @@ int main (int argc, char **argv)
 		else if(c=='q')
 		{
 			return(0);
+			vidRGB.release();
+			vidDepth.release();
+
 		}
 
 
