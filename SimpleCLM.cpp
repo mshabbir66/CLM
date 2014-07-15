@@ -354,17 +354,20 @@ int main (int argc, char **argv)
 	//	dImg = Mat::zeros( Size( WINSIZE, WINSIZE ), CV_16UC1);
 	//}
 
-	Mat img;
-	Mat dImg;
+	Mat img =  Mat::zeros( Size( WINSIZE, WINSIZE ), CV_8UC4);
+	Mat dImg = Mat::zeros( Size( WINSIZE, WINSIZE ), CV_16UC1);
 	VideoCapture vidRGB;
 	VideoCapture vidDepth;
 
 	vidRGB.open("rgbVideo.avi");
 	vidDepth.open("depthVideo.avi");
+	if (vidRGB.isOpened())
+		cout << "success" << endl;
+
 	vidRGB >> img;
 	vidDepth >> dImg;
-
-
+	cv::cvtColor(img, img, CV_RGB2RGBA);
+	cv::imshow("color",img);
 
 	//myKinect.InitializeKinectDevice();
 	//myKinect.UpdateData();
@@ -548,7 +551,7 @@ int main (int argc, char **argv)
 		if(success)			
 		{
 			int idx = clmModel._clm.GetViewIdx(); 	
-			cout << clmModel._clm._triangulations[idx] <<endl;
+			//cout << clmModel._clm._triangulations[idx] <<endl;
 
 			// drawing the facial features on the face if tracking is successful
 			clmModel._clm._pdm.Draw(disp, clmModel._shape, clmModel._clm._triangulations[idx]);
@@ -606,7 +609,7 @@ int main (int argc, char **argv)
 
 		vidRGB >> img;
  		vidDepth >> dImg;
-
+		cvtColor(img, img, CV_RGB2RGBA);
 
 		if(!outvideo.empty())
 		{		
