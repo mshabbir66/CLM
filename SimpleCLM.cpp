@@ -337,6 +337,9 @@ int main (int argc, char **argv)
 	// Do some grabbing	
 	
 	// Do some grabbing
+	VideoWriter outputVideoRGB;
+	outputVideoRGB.open("rgbVideo.avi",-1,30,cv::Size(WINSIZE,WINSIZE));
+
 	CK4Wv2OpenCVModule myKinect;
 	Mat img;
 	Mat dImg;
@@ -571,6 +574,9 @@ int main (int argc, char **argv)
 		frameProc++;
 						
 		imshow("colour", disp);
+		cvtColor(disp,disp,CV_RGBA2RGB);
+		outputVideoRGB << disp;
+
 		if(!depth.empty())
 		{
 			imshow("depth", depth/2000.0);
@@ -614,6 +620,8 @@ int main (int argc, char **argv)
 		// quit the application
 		else if(c=='q')
 		{
+			outputVideoRGB.release();
+
 			return(0);
 		}
 
